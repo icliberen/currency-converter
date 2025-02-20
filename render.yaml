@@ -2,8 +2,7 @@ services:
   - type: web
     name: currency-converter
     runtime: java
-    env: docker
     plan: free
     region: oregon
-    buildCommand: "mvn clean package"
+    buildCommand: "./mvnw clean package"
     startCommand: "java -jar target/currency-converter-1.0-SNAPSHOT.jar"
