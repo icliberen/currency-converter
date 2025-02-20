@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+</head>
+<body>
+<h1>Currency Converter</h1>
+<label>Amount:</label>
+<input type="number" id="amount" placeholder="Enter amount">
+
+<label>From:</label>
+<select id="from">
+    <option value="USD">USD</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+    <option value="TRY">TRY</option>
+</select>
+
+<label>To:</label>
+<select id="to">
+    <option value="USD">USD</option>
+    <option value="EUR">EUR</option>
+    <option value="GBP">GBP</option>
+    <option value="TRY">TRY</option>
+</select>
+
+<button onclick="convert()">Convert</button>
+<p id="result"></p>
+
+<script>
+    function convert() {
+        let amount = document.getElementById("amount").value;
+        let from = document.getElementById("from").value;
+        let to = document.getElementById("to").value;
+
+        fetch(`http://localhost:8080/api/convert?amount=${amount}&from=${from}&to=${to}`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("result").innerText = `Converted Amount: ${data} ${to}`;
+            })
+            .catch(error => console.error("Error:", error));
+    }
+</script>
+</body>
+</html>
