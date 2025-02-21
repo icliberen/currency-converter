@@ -4,5 +4,5 @@ services:
     runtime: java
     plan: free
     region: oregon
-    buildCommand: "./mvnw clean package"
+    buildCommand: "mvn clean package"
     startCommand: "java -jar target/currency-converter-1.0-SNAPSHOT.jar"
