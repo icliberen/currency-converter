@@ -48,27 +48,14 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot Plugin (required for executable JAR) -->
+            <!-- Spring Boot Plugin: Creates an executable JAR -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <!-- Maven JAR Plugin (ensures Main-Class is included) -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.example.currencyconverter.CurrencyConverterApplication</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
+
 
 
 </project>
