@@ -5,6 +5,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin(origins = "*") // Allow all origins (frontend can access API)
 @RestController
 @RequestMapping("/api")
 public class CurrencyConverterController {

@@ -17,21 +17,20 @@
     </properties>
 
     <dependencies>
-        
-
-        <!-- Spring Boot Starter Web -->
+        <!-- Spring Boot Starter Web (Required for RestController, GetMapping) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Boot Starter Test (Remove if not testing) -->
+        <!-- Spring Boot Starter Test (Optional for Testing) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 
 
     <dependencyManagement>
