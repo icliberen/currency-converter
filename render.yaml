@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: currency-converter
-    runtime: java
-    plan: free
-    region: oregon
-    buildCommand: "mvn clean package"
-    startCommand: "java -jar target/currency-converter-1.0-SNAPSHOT.jar"
