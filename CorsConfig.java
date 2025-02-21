@@ -13,10 +13,14 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://currency-converter-production-239c.up.railway.app"));
-        config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept"));
+        config.setAllowedOrigins(Arrays.asList(
+                "http://localhost:3000", // If your frontend runs locally
+                "http://localhost:8080", // If your backend runs locally
+                "https://currency-converter-production-239c.up.railway.app" // Your deployed frontend
+        ));
+        config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/**", config); // Allow all endpoints
         return new CorsFilter(source);
     }
 }
