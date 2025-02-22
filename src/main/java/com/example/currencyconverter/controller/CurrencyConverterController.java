@@ -1,51 +1,49 @@
 package com.example.currencyconverter.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 
-@CrossOrigin(origins = "*") // Allow all origins (frontend can access API)
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 public class CurrencyConverterController {
 
-    private static final String API_URL = "https://api.exchangerate-api.com/v4/latest/";
+    @Value("${exchange.api.key}") // API key from application.properties
+    private String apiKey;
+
+    @Value("${exchange.api.url}") // API URL from application.properties
+    private String apiUrl;
 
     @GetMapping("/convert")
     public Map<String, Object> convertCurrency(
-            @RequestParam(required = false) String from,
-            @RequestParam(required = false) String to,
-            @RequestParam(required = false) Double amount) {
+            @RequestParam double amount,
+            @RequestParam String from,
+            @RequestParam String to) {
 
-        // ✅ Error Handling: Check if any parameter is missing
-        if (from == null || to == null || amount == null) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("error", "Missing parameters! Please provide 'from', 'to', and 'amount'.");
-            return errorResponse;
-        }
+        double convertedAmount = getExchangeRate(from, to) * amount;
 
+        Map<String, Object> result = new HashMap<>();
+        result.put("amount", amount);
+        result.put("from", from);
+        result.put("to", to);
+        result.put("convertedAmount", String.format("%.2f", convertedAmount));
+
+        return result;
+    }
+
+    private double getExchangeRate(String from, String to) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = API_URL + from;
-
-        Map<String, Object> response = restTemplate.getForObject(url, Map.class);
+        String requestUrl = apiUrl + from + "?apikey=" + apiKey;
+        Map<String, Object> response = restTemplate.getForObject(requestUrl, Map.class);
 
         if (response != null && response.containsKey("rates")) {
             Map<String, Double> rates = (Map<String, Double>) response.get("rates");
-            if (rates.containsKey(to)) {
-                double convertedAmount = amount * rates.get(to);
-
-                Map<String, Object> result = new HashMap<>();
-                result.put("amount", amount);
-                result.put("from", from);
-                result.put("to", to);
-                result.put("convertedAmount", String.format("%.2f", convertedAmount));
-                return result;
-            }
+            return rates.getOrDefault(to, 1.0);
         }
-
-        Map<String, Object> errorResult = new HashMap<>();
-        errorResult.put("error", "Invalid conversion request");
-        return errorResult;
+        return 1.0; // Default to 1.0 if exchange rate is not found
     }
 }
