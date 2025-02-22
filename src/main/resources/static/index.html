@@ -6,42 +6,51 @@
     <title>Currency Converter</title>
 </head>
 <body>
-<h1>Currency Converter</h1>
-<label>Amount:</label>
-<input type="number" id="amount" placeholder="Enter amount">
 
-<label>From:</label>
-<select id="from">
+<h2>Currency Converter</h2>
+
+<input type="number" id="amount" placeholder="Enter amount" required>
+
+<select id="from-currency">
     <option value="USD">USD</option>
     <option value="EUR">EUR</option>
     <option value="GBP">GBP</option>
-    <option value="TRY">TRY</option>
 </select>
 
-<label>To:</label>
-<select id="to">
+to
+
+<select id="to-currency">
     <option value="USD">USD</option>
     <option value="EUR">EUR</option>
     <option value="GBP">GBP</option>
-    <option value="TRY">TRY</option>
 </select>
 
-<button onclick="convert()">Convert</button>
+<button id="convert-btn">Convert</button>
+
 <p id="result"></p>
 
 <script>
-    function convert() {
-        let amount = document.getElementById("amount").value;
-        let from = document.getElementById("from").value;
-        let to = document.getElementById("to").value;
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("convert-btn").addEventListener("click", function () {
+            const amount = document.getElementById("amount").value;
+            const from = document.getElementById("from-currency").value;
+            const to = document.getElementById("to-currency").value;
 
-        fetch(`http://localhost:8080/api/convert?amount=${amount}&from=${from}&to=${to}`)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("result").innerText = `Converted Amount: ${data} ${to}`;
-            })
-            .catch(error => console.error("Error:", error));
-    }
+            const apiUrl = `https://currency-converter-production-239c.up.railway.app/api/convert?amount=${amount}&from=${from}&to=${to}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("result").innerHTML =
+                        `${amount} ${from} = <strong>${data.convertedAmount} ${to}</strong>`;
+                })
+                .catch(error => {
+                    console.error("Error fetching conversion data:", error);
+                    document.getElementById("result").innerHTML = "Conversion failed!";
+                });
+        });
+    });
 </script>
+
 </body>
 </html>
