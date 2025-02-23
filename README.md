@@ -1,20 +1,32 @@
 # Currency Converter 
 
-This is a Spring Boot-based currency converter that fetches live exchange rates and provides real-time conversions.
+A real-time currency converter that allows users to convert between different currencies using live exchange rates.
+
+## Live Demo
+**Website:** [Currency Converter](https://trader.great-site.net/)  
+**API Endpoint:** [Currency API](https://currency-converter-production-239c.up.railway.app/api/convert?amount=100&from=USD&to=EUR)
+
+---
 
 ## Features
-- Live currency conversion
-- REST API (`/api/convert`)
-- Supports multiple currencies (USD, EUR, GBP, TRY, etc.)
-- Simple frontend for user interaction
+  Convert between **multiple currencies** (USD, EUR, GBP, JPY, CAD, TRY, etc.)  
+  Uses **live exchange rates** via an external API  
+  Simple **frontend interface** for easy conversions  
+  Backend built with **Spring Boot** and deployed on **Railway**  
+  Frontend hosted on **InfinityFree**  
 
-## Tech Stack
-- **Backend:** Java, Spring Boot, REST API
-- **Frontend:** HTML, CSS, JavaScript
-- **API Source:** [ExchangeRate-API](https://www.exchangerate-api.com/)
-- **Database:** None (fetches live rates from an external API)
+---
 
-## 📖 How to Run Locally
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/icliberen/currency-converter.git
+## Technologies Used
+ **Backend:** Java, Spring Boot, REST API
+ **Frontend:** HTML, JavaScript
+ **Deployment:** Railway (backend), InfinityFree (frontend)
+ **API:** ExchangeRate-API
+
+---
+
+## Setup Instructions
+### **Clone the repository**
+```sh
+git clone https://github.com/YOUR_GITHUB_USERNAME/currency-converter.git
+cd currency-converter
