@@ -3,7 +3,7 @@
 A real-time currency converter that allows users to convert between different currencies using live exchange rates.
 
 ## Live Demo
-**Website:** [Currency Converter](https://trader.great-site.net)  
+**Website:** [Currency Converter](trader.great-site.net)  
 **API Endpoint:** [Currency API](https://currency-converter-production-239c.up.railway.app/api/convert?amount=100&from=USD&to=EUR)
 
 ---
