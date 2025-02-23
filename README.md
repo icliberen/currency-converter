@@ -29,5 +29,5 @@ A real-time currency converter that allows users to convert between different cu
 ## Setup Instructions
 ### **Clone the repository**
 ```sh
-git clone https://github.com/YOUR_GITHUB_USERNAME/currency-converter.git
+git clone https://github.com/icliberen/currency-converter.git
 cd currency-converter
