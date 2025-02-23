@@ -18,10 +18,11 @@ A real-time currency converter that allows users to convert between different cu
 ---
 
 ## Technologies Used
- **Backend:** Java, Spring Boot, REST API
- **Frontend:** HTML, JavaScript
- **Deployment:** Railway (backend), InfinityFree (frontend)
- **API:** ExchangeRate-API
+- **Backend:** Java, Spring Boot, REST API
+- **Frontend:** HTML, JavaScript
+- **Deployment:** Railway (backend), InfinityFree (frontend)
+- **API:** ExchangeRate-API (or any other you are using)
+
 
 ---
 
