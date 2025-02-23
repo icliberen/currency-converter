@@ -37,13 +37,18 @@ public class CurrencyConverterController {
 
     private double getExchangeRate(String from, String to) {
         RestTemplate restTemplate = new RestTemplate();
-        String requestUrl = apiUrl + from + "?apikey=" + apiKey;
+        String requestUrl = apiUrl + from + "?apikey=" + apiKey; // Use API to get rates for all currencies
+
         Map<String, Object> response = restTemplate.getForObject(requestUrl, Map.class);
 
         if (response != null && response.containsKey("rates")) {
             Map<String, Double> rates = (Map<String, Double>) response.get("rates");
-            return rates.getOrDefault(to, 1.0);
+            if (rates.containsKey(to)) {
+                return rates.get(to); // Return the exchange rate for the requested currency
+            }
         }
+
         return 1.0; // Default to 1.0 if exchange rate is not found
     }
+
 }
