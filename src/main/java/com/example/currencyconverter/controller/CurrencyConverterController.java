@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 import java.util.HashMap;
-
+import java.math.BigDecimal;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -20,35 +20,35 @@ public class CurrencyConverterController {
 
     @GetMapping("/convert")
     public Map<String, Object> convertCurrency(
-            @RequestParam double amount,
+            @RequestParam BigDecimal amount, // Using BigDecimal
             @RequestParam String from,
             @RequestParam String to) {
 
-        double convertedAmount = getExchangeRate(from, to) * amount;
+        BigDecimal exchangeRate = getExchangeRate(from, to);
+        BigDecimal convertedAmount = amount.multiply(exchangeRate); // Use multiply() instead of `*`
 
         Map<String, Object> result = new HashMap<>();
         result.put("amount", amount);
         result.put("from", from);
         result.put("to", to);
-        result.put("convertedAmount", String.format("%.2f", convertedAmount));
+        result.put("convertedAmount", convertedAmount.setScale(2, BigDecimal.ROUND_HALF_UP)); // Round to 2 decimal places
 
         return result;
     }
 
-    private double getExchangeRate(String from, String to) {
+    private BigDecimal getExchangeRate(String from, String to) {
         RestTemplate restTemplate = new RestTemplate();
-        String requestUrl = apiUrl + from + "?apikey=" + apiKey; // Use API to get rates for all currencies
+        String requestUrl = apiUrl + from + "?apikey=" + apiKey;
 
         Map<String, Object> response = restTemplate.getForObject(requestUrl, Map.class);
 
         if (response != null && response.containsKey("rates")) {
-            Map<String, Double> rates = (Map<String, Double>) response.get("rates");
+            Map<String, Object> rates = (Map<String, Object>) response.get("rates");
             if (rates.containsKey(to)) {
-                return rates.get(to); // Return the exchange rate for the requested currency
+                return new BigDecimal(rates.get(to).toString()); // Convert rate to BigDecimal
             }
         }
-
-        return 1.0; // Default to 1.0 if exchange rate is not found
+        return BigDecimal.ONE; // Default to 1.0 if rate is missing
     }
 
 }
